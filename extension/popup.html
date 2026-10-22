@@ -1,0 +1,136 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>TabGuardian</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand-mark" aria-hidden="true"><span></span></div>
+      <div class="brand-copy">
+        <h1>TabGuardian</h1>
+        <p class="muted">Your browser, under control.</p>
+      </div>
+      <button id="themeBtn" class="icon-btn" title="Switch theme" aria-label="Switch theme">☼</button>
+      <button id="refreshBtn" class="icon-btn" title="Refresh tabs" aria-label="Refresh tabs">↻</button>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">YOUR WORKSPACE</p>
+        <h2><span id="tabCount">0</span> <span id="tabWord">open tabs</span></h2>
+        <p class="muted">A little less clutter, a little more focus.</p>
+      </div>
+      <div class="hero-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="3.5" y="4" width="17" height="13" rx="2.5"></rect>
+          <path d="M8 21h8M12 17v4"></path>
+        </svg>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Browser status">
+      <article class="metric-card">
+        <div class="metric-top">
+          <span class="metric-dot memory-dot"></span>
+          <span>Brave RAM</span>
+          <span class="info-mark" title="Approximate RAM summed across Brave processes by the optional local Python service. Shared memory can be counted more than once.">i</span>
+        </div>
+        <strong id="ramValue" class="metric-value">—</strong>
+        <p id="ramNote" class="metric-note">Start the local Python service</p>
+      </article>
+
+      <article class="metric-card">
+        <div class="metric-top">
+          <span class="metric-dot network-dot"></span>
+          <span>Connection</span>
+          <span id="onlineState" class="status-label">Checking</span>
+        </div>
+        <strong id="speedValue" class="metric-value">—</strong>
+        <p id="speedNote" class="metric-note">Run a quick speed test</p>
+        <button id="speedBtn" class="text-btn">Test speed <span aria-hidden="true">↗</span></button>
+      </article>
+    </section>
+
+    <p class="muted small toolbar-hint">
+      Toolbar: the small badge shows RAM. Hover over the TabGuardian icon to see RAM and your last speed-test result. Pin the icon from the extensions menu.
+    </p>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h3>Open tabs</h3>
+          <p class="section-subtitle">Save a page for later.</p>
+        </div>
+        <span class="pill" id="activeLabel">Live</span>
+      </div>
+      <div id="tabsList" class="tabs-list">
+        <p class="muted small">Loading tabs…</p>
+      </div>
+      <button id="saveAllBtn" class="secondary-btn full-btn">
+        Save all eligible tabs <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h3>Reading vault</h3>
+          <p class="section-subtitle">Good links, kept close.</p>
+        </div>
+        <span class="pill" id="savedCount">0 saved</span>
+      </div>
+      <form id="saveForm" class="save-form">
+        <input id="urlInput" type="url" placeholder="Paste a website link" aria-label="Website URL" required>
+        <input id="titleInput" type="text" placeholder="Give it a name (optional)" aria-label="Page title, optional">
+        <button class="primary-btn" type="submit">Save link <span aria-hidden="true">＋</span></button>
+      </form>
+      <div id="vaultList" class="vault-list"></div>
+    </section>
+
+    <section class="focus panel">
+      <div class="section-head">
+        <div>
+          <h3>Focus session</h3>
+          <p class="section-subtitle">One thing at a time.</p>
+        </div>
+        <span class="pill focus-pill">25 min</span>
+      </div>
+      <div class="timer" id="timer">25:00</div>
+      <div class="timer-track"><span id="timerProgress"></span></div>
+      <div class="timer-controls">
+        <button id="startBtn" class="primary-btn">Start focus</button>
+        <button id="resetBtn" class="secondary-btn">Reset</button>
+      </div>
+      <p id="focusStatus" class="muted small">Your next 25 minutes are yours.</p>
+    </section>
+
+    <section class="panel insights">
+      <div class="section-head">
+        <div>
+          <h3>Domain insights</h3>
+          <p class="section-subtitle">Analysis stays on your Mac.</p>
+        </div>
+        <span class="pill">Python</span>
+      </div>
+      <p id="apiStatus" class="muted small">Optional local service · no cloud account needed.</p>
+      <button id="insightsBtn" class="secondary-btn full-btn">
+        Analyze my tabs <span aria-hidden="true">→</span>
+      </button>
+      <div id="insightsResult" class="insights-result"></div>
+    </section>
+
+    <footer>
+      <span class="privacy-dot"></span>
+      Private by design · stored locally in your browser
+    </footer>
+    <div id="toast" role="status" class="toast" aria-live="polite"></div>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

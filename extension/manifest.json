@@ -1,0 +1,23 @@
+
+{
+  "manifest_version": 3,
+  "name": "TabGuardian",
+  "version": "1.2.0",
+  "description": "A privacy-first tab organizer, focus companion, and system status dashboard.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "https://speed.cloudflare.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "TabGuardian · RAM status in badge; hover for details",
+    "default_popup": "popup.html"
+  }
+}

@@ -155,7 +155,7 @@ $("refreshBtn").addEventListener("click", async () => {
 
 async function updateRamStatus() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/metrics", { cache: "no-store" });
+    const response = await fetch("http://127.0.0.1:5055/metrics", { cache: "no-store" });
     if (!response.ok) throw new Error("RAM metrics unavailable");
     const data = await response.json();
     const mb = Number(data.brave_ram_mb);
@@ -212,7 +212,7 @@ $("insightsBtn").addEventListener("click", async () => {
   const result = $("insightsResult"); result.textContent = "Analyzing locally…";
   const payload = { tabs: allTabs.filter(eligible).map((tab) => ({ title: tab.title || "", url: tab.url })) };
   try {
-    const response = await fetch("http://127.0.0.1:5000/analyze", {
+    const response = await fetch("http://127.0.0.1:5055/analyze", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
     });
     if (!response.ok) throw new Error(`Server returned ${response.status}`);

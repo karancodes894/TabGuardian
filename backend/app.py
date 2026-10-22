@@ -63,4 +63,4 @@ def analyze():
 
 if __name__ == "__main__":
     # Bind to loopback only: this API is intended for your own Mac.
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    app.run(host="127.0.0.1", port=5055, debug=False)

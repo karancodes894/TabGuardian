@@ -5,7 +5,7 @@ from flask_cors import CORS
 import psutil
 
 app = Flask(__name__)
-# The server binds to loopback only; CORS permits the browser extension to call it.
+
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.get("/health")
@@ -62,5 +62,5 @@ def analyze():
     })
 
 if __name__ == "__main__":
-    # Bind to loopback only: this API is intended for your own Mac.
+    
     app.run(host="127.0.0.1", port=5055, debug=False)

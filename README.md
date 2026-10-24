@@ -1,83 +1,60 @@
-# TabGuardian 🛡️
+# TabGuardian
 
-**Your browser, under control.**
+TabGuardian is a browser extension I built to help manage open tabs and keep useful links in one place. It also includes a focus timer, theme settings, a speed test, and a few browser insights.
 
-TabGuardian is a privacy-focused browser extension that helps you organize tabs, save useful links, stay focused, monitor Brave browser RAM usage, and understand your browsing activity.
+Some features work directly in the extension. RAM monitoring and domain analysis need the optional Python backend running on your computer.
 
-## ✨ Features
+## Features
 
-- **Tab Manager** — View, search, switch between, and close open tabs.
-- **Reading Vault** — Save useful links for later and reopen them whenever you need them.
-- **Focus Timer** — Use a 25-minute focus session to stay productive.
-- **Theme Switcher** — Customize the dashboard appearance.
-- **Brave RAM Monitor** — View approximate RAM usage of Brave browser processes.
-- **Analyze My Tabs** — Count web tabs, identify unique domains, and find repeated domains.
-- **Internet Speed Test** — Estimate download speed using Cloudflare's speed test endpoint.
-- **Local Python Backend** — Provides RAM metrics and domain analysis from your own computer.
+- **Tab management:** View and manage open browser tabs.
+- **Reading Vault:** Save links and open them again later.
+- **Focus timer:** Use a 25-minute timer for focused work.
+- **Theme switcher:** Change the dashboard theme.
+- **RAM monitor:** View an approximate RAM reading for Brave processes.
+- **Tab analysis:** Count eligible web tabs, find unique domains, and identify repeated domains.
+- **Internet speed test:** Estimate download speed using Cloudflare's speed-test endpoint.
 
-## 🧰 Built With
+## Technologies
 
-- HTML
-- CSS
-- JavaScript
-- Brave/Chromium Extension APIs
+- HTML, CSS, and JavaScript
+- Chromium extension APIs
 - Python 3
-- Flask
-- Flask-CORS
+- Flask and Flask-CORS
 - psutil
 
-## 📁 Project Structure
+## Project structure
 
 ```text
-TabGuardian-main/
+tab guardian hour 1/
+├── backend/
+│   └── app.py
 ├── extension/
-│   ├── manifest.json
 │   ├── background.js
+│   ├── manifest.json
 │   ├── popup.html
 │   ├── popup.css
 │   └── popup.js
-├── backend/
-│   └── app.py
 ├── requirments.txt
 ├── README.md
 └── TESTING.md
 ```
 
-## 🚀 Installation
+## Install in Brave
 
-### Step 1: Download TabGuardian
-
-1. Open this GitHub repository.
-2. Click the green **Code** button.
-3. Select **Download ZIP**.
-4. Extract the downloaded ZIP file.
-
-### Step 2: Install the browser extension
-
-1. Open the Brave browser.
-2. Visit `brave://extensions`.
+1. Download the repository from GitHub and extract it.
+2. Open `brave://extensions` in Brave.
 3. Enable **Developer mode**.
 4. Click **Load unpacked**.
 5. Select the `extension` folder containing `manifest.json`.
-6. Click the TabGuardian icon to open the dashboard.
+6. Click the TabGuardian icon to open the extension.
 
-**Important:** Select the `extension` folder, not the main project folder.
+## Run the Python backend
 
-The extension's tab management, Reading Vault, focus timer, theme switcher, and other browser-side features can work without the Python backend.
+The backend is needed for RAM monitoring and tab analysis.
 
-## 🐍 Enable RAM Monitoring and Analyze My Tabs
+### macOS
 
-RAM monitoring and Analyze My Tabs require the local Python backend to be installed and running on your computer.
-
-### Requirements
-
-- Python 3
-- Brave browser
-- Internet connection for installing Python dependencies
-
-### macOS and Linux
-
-Open Terminal in the extracted `TabGuardian-main` project folder and run these commands one at a time:
+Open Terminal in the project folder and run:
 
 ```bash
 cd backend
@@ -87,11 +64,11 @@ python3 -m pip install -r ../requirments.txt
 python3 app.py
 ```
 
-Keep the Terminal window open while using the Python-powered features.
+Keep the terminal open while using the backend features.
 
 ### Windows
 
-Open Command Prompt in the extracted `TabGuardian-main` project folder and run:
+Open Command Prompt in the project folder and run:
 
 ```bat
 cd backend
@@ -101,101 +78,42 @@ py -m pip install -r ..\requirments.txt
 py app.py
 ```
 
-Keep the Command Prompt window open while using the Python-powered features.
+## Check the backend
 
-### Verify the backend
+Open these addresses in your browser after starting the server:
 
-Once the server starts, open the following address in your browser:
+- Health check: `http://127.0.0.1:5055/health`
+- RAM metrics: `http://127.0.0.1:5055/metrics`
 
-`http://127.0.0.1:5055/health`
+The health endpoint should return a response with `"status": "ok"`. RAM readings are estimates, so they may not match the exact memory use shown by Activity Monitor.
 
-A successful response contains:
+## Privacy
 
-```json
-{
-  "status": "ok",
-  "service": "TabGuardian Python insights"
-}
-```
+The Python backend runs on your computer and listens on `127.0.0.1`. Tab analysis sends eligible tab URLs to this local backend for processing. The speed test contacts Cloudflare when you start it. The extension uses browser permissions to access tabs and browser storage to save links and preferences.
 
-You can also check RAM metrics at:
+## Troubleshooting
 
-`http://127.0.0.1:5055/metrics`
+**The extension does not load**
+- Make sure Developer mode is enabled.
+- Select the `extension` folder, not the main project folder.
+- Check for errors on `brave://extensions`.
 
-This endpoint returns an approximate RAM measurement for Brave browser processes.
+**RAM monitoring is unavailable**
+- Start the Python backend.
+- Open `http://127.0.0.1:5055/health`.
+- If the backend responds, reopen the extension and try again.
 
-After starting the backend, return to TabGuardian and test **RAM Monitoring** and **Analyze My Tabs**.
+**Tab analysis does not work**
+- Make sure the backend is running.
+- Open a few regular HTTP or HTTPS websites in Brave and try again.
 
-## 🔒 Privacy
+**Python is not found**
+- Install Python 3. On macOS, use `python3`; on Windows, try `py`.
 
-- TabGuardian's Python backend listens on your own computer at `127.0.0.1`.
-- RAM measurements and domain analysis are processed locally by the backend.
-- The backend does not intentionally transmit your tab list to a remote analysis service.
-- The internet speed test sends a request to Cloudflare when you manually start the test.
-- RAM figures are approximate because shared memory may be counted more than once.
+## Testing
 
-The extension also uses browser permissions to access and manage tabs, and local browser storage to save preferences and Reading Vault links.
+See [TESTING.md](TESTING.md) for the testing checklist.
 
-## 🛠️ Troubleshooting
+## License
 
-### Extension does not load
-
-- Open `brave://extensions`.
-- Confirm Developer mode is enabled.
-- Select the `extension` folder containing `manifest.json`.
-- Check the error details displayed by Brave.
-
-### RAM usage shows Unavailable
-
-1. Start the Python backend using the instructions above.
-2. Open `http://127.0.0.1:5055/health`.
-3. Confirm that the response contains `"status": "ok"`.
-4. Open `http://127.0.0.1:5055/metrics` to check RAM data.
-5. Return to TabGuardian and refresh or reopen the dashboard.
-
-### Analyze My Tabs does not work
-
-1. Make sure the Python backend is running.
-2. Open several ordinary web pages in Brave.
-3. Return to TabGuardian.
-4. Click **Analyze My Tabs** again.
-
-The analysis counts eligible HTTP and HTTPS tabs. Browser-internal pages are excluded.
-
-### Python or pip command is not found
-
-Install Python 3 and make sure it is available in your system PATH. On macOS, use `python3` and `python3 -m pip`. On Windows, try `py` and `py -m pip`.
-
-### Dependency installation fails
-
-Make sure you are in the `backend` folder before running the dependency installation command. The dependency file in this repository is currently named `requirments.txt`.
-
-### Port 5055 is already in use
-
-Another process may already be using port 5055. Check whether an existing TabGuardian backend is running before starting another instance.
-
-## 🧪 Testing
-
-See [TESTING.md](TESTING.md) for the project testing checklist.
-
-Before sharing a release, verify that:
-
-- The extension loads successfully.
-- Tab management and Reading Vault work.
-- The focus timer and theme switcher work.
-- RAM metrics are returned by the backend.
-- Analyze My Tabs identifies repeated domains correctly.
-- The internet speed test handles connection failures.
-- The setup instructions work on a fresh installation.
-
-## 🎯 Project Goal
-
-TabGuardian aims to make everyday browsing more organized, productive, and privacy-conscious through a simple browser dashboard.
-
-## 👨‍💻 Contributing
-
-Suggestions, bug reports, and improvements are welcome. Test changes carefully and preserve existing working features.
-
-## 📄 License
-
-Add your chosen open-source license before distributing TabGuardian publicly. Until a license is added, do not assume that others have permission to redistribute or modify the project.
+This repository does not currently specify a license. Until a license is added, others should not assume they have permission to redistribute or modify the code.

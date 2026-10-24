@@ -1,4 +1,4 @@
-  // TabGuardian popup for Chromium browsers (Brave/Chrome) and compatible Safari APIs.
+
 const api = globalThis.browser || globalThis.chrome;
 const $ = (id) => document.getElementById(id);
 let allTabs = [];
@@ -183,7 +183,7 @@ async function runSpeedTest() {
   button.disabled = true; button.textContent = "Testing…";
   $("speedValue").textContent = "…"; $("speedNote").textContent = "Downloading a 1 MB test file";
   try {
-    // This runs only when the user clicks. The test request goes to Cloudflare Speed Test.
+    
     const bytes = 1_000_000;
     const url = `https://speed.cloudflare.com/__down?bytes=${bytes}&_=${Date.now()}`;
     const start = performance.now();

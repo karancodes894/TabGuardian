@@ -3,7 +3,7 @@
   "manifest_version": 3,
   "name": "TabGuardian",
   "version": "1.2.0",
-  "description": "A privacy-first tab organizer, focus companion, and system status dashboard.",
+  "description": "Manage open tabs, save links, focus with a timer, and check Brave RAM usage.",
   "permissions": [
     "tabs",
     "storage",

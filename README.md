@@ -6,13 +6,13 @@ Some features work directly in the extension. RAM monitoring and domain analysis
 
 ## Features
 
-- **Tab management:** View and manage open browser tabs.
-- **Reading Vault:** Save links and open them again later.
-- **Focus timer:** Use a 25-minute timer for focused work.
-- **Theme switcher:** Change the dashboard theme.
-- **RAM monitor:** View an approximate RAM reading for Brave processes.
-- **Tab analysis:** Count eligible web tabs, find unique domains, and identify repeated domains.
-- **Internet speed test:** Estimate download speed using Cloudflare's speed-test endpoint.
+- Tab management:** View and manage open browser tabs.
+- Reading Vault:** Save links and open them again later.
+- Focus timer:** Use a 25-minute timer for focused work.
+- Theme switcher:** Change the dashboard theme.
+- RAM monitor:** View an approximate RAM reading for Brave processes.
+- Tab analysis:** Count eligible web tabs, find unique domains, and identify repeated  domains.
+- Internet speed test:** Estimate download speed using Cloudflare's speed-test endpoint.
 
 ## Technologies
 
@@ -98,7 +98,7 @@ The Python backend runs on your computer and listens on `127.0.0.1`. Tab analysi
 - Select the `extension` folder, not the main project folder.
 - Check for errors on `brave://extensions`.
 
-**RAM monitoring is unavailable**
+RAM monitoring is unavailable**
 - Start the Python backend.
 - Open `http://127.0.0.1:5055/health`.
 - If the backend responds, reopen the extension and try again.
